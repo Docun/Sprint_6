@@ -1,167 +1,209 @@
-from pages.section_important import *
+import pytest
 from selenium import webdriver
+from pages.section_important import *
+
 
 
 class TestSectionHowMuch:
-    driver = None
+    @pytest.fixture(autouse=True)
+    def setup(self, start_from_login_page):
+        self.page = CheckHowMuchSection(start_from_login_page)
 
-    @classmethod
-    def setup_class(cls):
-        # создали драйвер для браузера Firefox
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
+    def check_much_selection(self):
+        self.page.wait_for_load_questions()
+        self.page.scroll_page_for_live()
+        self.page.click_cokies_now()
+        self.page.click_questions()
+        self.page.get_text_section_how_much()
+        assert "Сутки — 400 рублей. Оплата курьеру — наличными или картой." in get_text_section_how_much
+    # @classmethod
+    # def setup_class(cls):
+    #     # создали драйвер для браузера Firefox
+    #     cls.driver = webdriver.Firefox()
+    #     cls.driver.maximize_window()
+    # def test_check_section_how(self):
+    #     # перешли на страницу тестового приложения
+    #     self.driver.get('https://qa-scooter.praktikum-services.ru/')
+    #
+    #     # Объект класса раздела "Сколько стоит"
+    #     section_page = HowMuchSection(self.driver)
+    #
+    #     # Дожидаемся загрузки раздела "Сколько стоит"
+    #     section_page.wait_for_load_how_much()
+    #
+    #     # Прокручиваем страницу
+    #     section_page.scroll_page_for_live()
+    #
+    #     # Кликаем по кукам
+    #     section_page.click_cokies_now()
+    #
+    #     # Кликаем по разделу "Сколько стоит"
+    #     section_page.click_how_much()
+    #
+    #     # Получаем текст из выпадающего раздела
+    #     open_section = section_page.get_text_section_how_much()
+    #
+    #     # Делаем проверку раздела "Сколько стоит"
+    #
+    # @classmethod
+    # def teardown_class(cls):
+    #     # Закрой браузер
+    #     cls.driver.quit()
 
-    def test_check_section_how(self):
-        # перешли на страницу тестового приложения
-        self.driver.get('https://qa-scooter.praktikum-services.ru/')
 
-        # Объект класса раздела "Сколько стоит"
-        section_page = HowMuchSection(self.driver)
-
-        # Дожидаемся загрузки раздела "Сколько стоит"
-        section_page.wait_for_load_how_much()
-
-        # Прокручиваем страницу
-        section_page.scroll_page_for_live()
-
-        # Кликаем по кукам
-        section_page.click_cokies_now()
-
-        # Кликаем по разделу "Сколько стоит"
-        section_page.click_how_much()
-
-        # Получаем текст из выпадающего раздела
-        open_section = section_page.get_text_section_how_much()
-
-        # Делаем проверку раздела "Сколько стоит"
-        assert open_section == "Сутки — 400 рублей. Оплата курьеру — наличными или картой."
-
-    @classmethod
-    def teardown_class(cls):
-        # Закрой браузер
-        cls.driver.quit()
 
 
 class TestSectionScoters:
-    driver = None
+    @pytest.fixture(autouse=True)
+    def setup(self, start_from_login_page):
+        self.page = CheckSomeScoters(start_from_login_page)
 
-    @classmethod
-    def setup_class(cls):
-        # создали драйвер для браузера Firefox
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
-
-    def test_check_section_scoters(self):
-        # перешли на страницу тестового приложения
-        self.driver.get('https://qa-scooter.praktikum-services.ru/')
-
-        # Объект класса раздела "Сколько стоит"
-        section_page = SomeScooters(self.driver)
-
-        # Дожидаемся загрузки раздела "Сколько стоит"
-        section_page.wait_for_load_scoters()
-
-        # Прокручиваем страницу
-        section_page.scroll_page_for_live()
-
-        # Кликаем по кукам
-        section_page.click_cokies_now()
-
-        # Кликаем по разделу "Самокаты_шмамокаты"
-        section_page.click_some_scoters()
-
-        # Получаем текст из выпадающего раздела
-        open_section = section_page.get_text_section_scoters()
-
-        # Делаем проверку раздела "Сколько стоит"
-        assert open_section == "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."
-
-    @classmethod
-    def teardown_class(cls):
-        # Закрой браузер
-        cls.driver.quit()
+    def check_selection_scoters(self):
+        self.page.wait_for_load_questions()
+        self.page.scroll_page_for_live()
+        self.page.click_cokies_now()
+        self.page.click_questions()
+        self.page.get_text_section_how_much()
+        assert "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим." in
+    # driver = None
+    #
+    # @classmethod
+    # def setup_class(cls):
+    #     # создали драйвер для браузера Firefox
+    #     cls.driver = webdriver.Firefox()
+    #     cls.driver.maximize_window()
+    #
+    # def test_check_section_scoters(self):
+    #     # перешли на страницу тестового приложения
+    #     self.driver.get('https://qa-scooter.praktikum-services.ru/')
+    #
+    #     # Объект класса раздела "Сколько стоит"
+    #     section_page = SomeScooters(self.driver)
+    #
+    #     # Дожидаемся загрузки раздела "Сколько стоит"
+    #     section_page.wait_for_load_scoters()
+    #
+    #     # Прокручиваем страницу
+    #     section_page.scroll_page_for_live()
+    #
+    #     # Кликаем по кукам
+    #     section_page.click_cokies_now()
+    #
+    #     # Кликаем по разделу "Самокаты_шмамокаты"
+    #     section_page.click_some_scoters()
+    #
+    #     # Получаем текст из выпадающего раздела
+    #     open_section = section_page.get_text_section_scoters()
+    #
+    #     # Делаем проверку раздела "Сколько стоит"
+    #     assert open_section == "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."
+    #
+    # @classmethod
+    # def teardown_class(cls):
+    #     # Закрой браузер
+    #     cls.driver.quit()
 
 
 
 class TestSectionOrdersNow:
-    driver = None
+    @pytest.fixture(autouse=True)
+    def setup(self, start_from_login_page):
+        self.page = CheckResntalTime(start_from_login_page)
 
-    @classmethod
-    def setup_class(cls):
-        # создали драйвер для браузера Firefox
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
-
-    def test_check_section_orders(self):
-        # перешли на страницу тестового приложения
-        self.driver.get('https://qa-scooter.praktikum-services.ru/')
-
-        # Объект класса раздела "Сколько стоит"
-        section_page = RentalTime(self.driver)
-
-        # Дожидаемся загрузки раздела "Сколько стоит"
-        section_page.wait_for_load_orders()
-
-        # Прокручиваем страницу
-        section_page.scroll_page_for_live()
-
-        # Кликаем по кукам
-        section_page.click_cokies_now()
-
-        # Кликаем по разделу "Про заказ"
-        section_page.click_some_time_order()
-
-        # Получаем текст из выпадающего раздела
-        open_section = section_page.get_text_section_order()
-
-        # Делаем проверку раздела "Оформление заказа"
-        assert open_section == "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."
-
-    @classmethod
-    def teardown_class(cls):
-        # Закрой браузер
-        cls.driver.quit()
+    def check_section_orders(self):
+        self.page.wait_for_load_questions()
+        self.page.scroll_page_for_live()
+        self.page.click_cokies_now()
+        self.page.click_questions()
+        self.page.get_text_section_how_much()
+        assert "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30." in
+    # driver = None
+    #
+    # @classmethod
+    # def setup_class(cls):
+    #     # создали драйвер для браузера Firefox
+    #     cls.driver = webdriver.Firefox()
+    #     cls.driver.maximize_window()
+    #
+    # def test_check_section_orders(self):
+    #     # перешли на страницу тестового приложения
+    #     self.driver.get('https://qa-scooter.praktikum-services.ru/')
+    #
+    #     # Объект класса раздела "Сколько стоит"
+    #     section_page = RentalTime(self.driver)
+    #
+    #     # Дожидаемся загрузки раздела "Сколько стоит"
+    #     section_page.wait_for_load_orders()
+    #
+    #     # Прокручиваем страницу
+    #     section_page.scroll_page_for_live()
+    #
+    #     # Кликаем по кукам
+    #     section_page.click_cokies_now()
+    #
+    #     # Кликаем по разделу "Про заказ"
+    #     section_page.click_some_time_order()
+    #
+    #     # Получаем текст из выпадающего раздела
+    #     open_section = section_page.get_text_section_order()
+    #
+    #     # Делаем проверку раздела "Оформление заказа"
+    #     assert open_section == "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."
+    #
+    # @classmethod
+    # def teardown_class(cls):
+    #     # Закрой браузер
+    #     cls.driver.quit()
 
 
 
 class TestSectionReturnOrder:
-    driver = None
+    @pytest.fixture(autouse=True)
+    def setup(self, start_from_login_page):
+        self.page = CheckReturnOrder(start_from_login_page)
 
-    @classmethod
-    def setup_class(cls):
-        # создали драйвер для браузера Firefox
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
+    def check_section_orders(self):
+        self.page.wait_for_load_questions()
+        self.page.scroll_page_for_live()
+        self.page.click_cokies_now()
+        self.page.click_questions()
+        self.page.get_text_section_how_much()
 
-    def test_check_section_return_orders(self):
-        # перешли на страницу тестового приложения
-        self.driver.get('https://qa-scooter.praktikum-services.ru/')
-
-        # Объект класса раздела "Сколько стоит"
-        section_page = ReturnOrder(self.driver)
-
-        # Дожидаемся загрузки раздела "вернуть самокат раньше?"
-        section_page.wait_for_load_orders()
-
-        # Прокручиваем страницу
-        section_page.scroll_page_for_live()
-
-        # Кликаем по кукам
-        section_page.click_cokies_now()
-
-        # Кликаем по разделу "Можно ли продлить заказ или вернуть самокат раньше?"
-        section_page.click_some_return_order()
-
-        # Получаем текст из выпадающего раздела
-        open_section = section_page.get_text_section_order()
-
-        # Делаем проверку раздела "Оформление заказа"
-        assert open_section == "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."
-
-    @classmethod
-    def teardown_class(cls):
-        # Закрой браузер
-        cls.driver.quit()
+    # @classmethod
+    # def setup_class(cls):
+    #     # создали драйвер для браузера Firefox
+    #     cls.driver = webdriver.Firefox()
+    #     cls.driver.maximize_window()
+    #
+    # def test_check_section_return_orders(self):
+    #     # перешли на страницу тестового приложения
+    #     self.driver.get('https://qa-scooter.praktikum-services.ru/')
+    #
+    #     # Объект класса раздела "Сколько стоит"
+    #     section_page = ReturnOrder(self.driver)
+    #
+    #     # Дожидаемся загрузки раздела "вернуть самокат раньше?"
+    #     section_page.wait_for_load_orders()
+    #
+    #     # Прокручиваем страницу
+    #     section_page.scroll_page_for_live()
+    #
+    #     # Кликаем по кукам
+    #     section_page.click_cokies_now()
+    #
+    #     # Кликаем по разделу "Можно ли продлить заказ или вернуть самокат раньше?"
+    #     section_page.click_some_return_order()
+    #
+    #     # Получаем текст из выпадающего раздела
+    #     open_section = section_page.get_text_section_order()
+    #
+    #     # Делаем проверку раздела "Оформление заказа"
+    #     assert open_section == "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."
+    #
+    # @classmethod
+    # def teardown_class(cls):
+    #     # Закрой браузер
+    #     cls.driver.quit()
 
 
 

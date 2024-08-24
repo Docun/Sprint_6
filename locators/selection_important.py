@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class Locators_selection:
+class LocatorsSelection:
     # Кнопка для кукис
     cookie_button = (By.CLASS_NAME, 'App_CookieButton__3cvqF')
 

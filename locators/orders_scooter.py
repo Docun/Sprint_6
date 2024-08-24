@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class Locators_order:
+class LocatorsOrder:
     # Кнопка Заказать в шапке
     order_button = (By.CLASS_NAME, 'Button_Button__ra12g')
 
@@ -35,10 +35,10 @@ class Locators_order:
     rental_period = (By.CLASS_NAME, 'Dropdown-control')
 
     # Вариант Четверо суток из выпадающего меню
-    four_day = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[2]/div[2]/div[4]')
+    four_day = (By.XPATH, "//div[@class='Dropdown-option' and text()='четверо суток']")
 
     # Вариант Пятеро суток из выпадающего меню
-    five_day = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[2]/div[2]/div[5]')
+    five_day = (By.XPATH, "//div[@class='Dropdown-option' and text()='пятеро суток']")
 
     # Чекбокс "чёрный жемчуг"
     checkbox_black = (By.CLASS_NAME, 'Checkbox_Input__14A2w')
@@ -50,12 +50,12 @@ class Locators_order:
     comment_for_courier = (By.XPATH, "//input[@placeholder='Комментарий для курьера']")
 
     # Кнопка Заказать
-    button_charter = (By.XPATH, '//*[@id="root"]/div/div[2]/div[3]/button[2]')
+    button_middle = (By.CSS_SELECTOR, "button.Button_Buttonra12g.Button_Middle1CSJM")
 
     # Кнопка ДА
     order_yes = (By.XPATH, '//*[text()="Да"]')
 
-    # Кнопка Посмотреть статус
+    # Надпись статус заказа
     order_check_status = (By.CLASS_NAME, 'Order_ModalHeader__3FDaJ')
 
     # Надпись "Про аренду"

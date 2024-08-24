@@ -1,244 +1,180 @@
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from locators.orders_scooter import Locators_order
-from locators.selection_important import Locators_selection
-import pytest
+from locators.orders_scooter import LocatorsOrder
+from locators.selection_important import LocatorsSelection
+from test_base import BasePage
 
 
-# Класс для проверки кнопки заказа из шапки сайта
-class CheckOrderFirstButton:
-    @pytest.fixture(autouse=True)
-    def init_driver(self, browser):
-        self.driver = browser
+class CheckOrderFirstButton(BasePage):
 
     def __init__(self, driver):
-        self.driver = driver
-        self.order_button = Locators_order.order_button
-        self.field_name = Locators_order.field_name
-        self.field_surname = Locators_order.field_surname
-        self.field_address = Locators_order.field_address
-        self.field_number = Locators_order.field_number
-        self.order_next = Locators_order.order_next
-        self.field_bring_order = Locators_order.field_bring_order
-        self.rental_period = Locators_order.rental_period
-        self.four_day = Locators_order.four_day
-        self.checkbox_black = Locators_order.checkbox_black
-        self.comment_for_courier = Locators_order.comment_for_courier
-        self.button_charter = Locators_order.button_charter
-        self.order_yes = Locators_order.order_yes
-        self.order_check_status = Locators_order.order_check_status
-        self.inscription = Locators_order.inscription
-        self.field_station_metro = Locators_order.field_station_metro
-        self.paragraph_metro = Locators_order.paragraph_metro
-        self.date_twenty = Locators_order.date_twenty
+        super().__init__(driver)
+        self.order_button = LocatorsOrder.order_button
+        self.field_name = LocatorsOrder.field_name
+        self.field_surname = LocatorsOrder.field_surname
+        self.field_address = LocatorsOrder.field_address
+        self.field_number = LocatorsOrder.field_number
+        self.order_next = LocatorsOrder.order_next
+        self.field_bring_order = LocatorsOrder.field_bring_order
+        self.rental_period = LocatorsOrder.rental_period
+        self.four_day = LocatorsOrder.four_day
+        self.checkbox_black = LocatorsOrder.checkbox_black
+        self.comment_for_courier = LocatorsOrder.comment_for_courier
+        self.button_middle = LocatorsOrder.button_middle
+        self.order_yes = LocatorsOrder.order_yes
+        self.order_check_status = LocatorsOrder.order_check_status
+        self.inscription = LocatorsOrder.inscription
+        self.field_station_metro = LocatorsOrder.field_station_metro
+        self.paragraph_metro = LocatorsOrder.paragraph_metro
+        self.date_twenty = LocatorsOrder.date_twenty
 
-
-
-    # метод ожидания загрузки страницы
     def wait_for_load_page_order(self):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(self.order_button))
+        self.click_button(self.order_button)
 
-    #  Клик по кнопке заказать из шапки страницы
     def click_button_orders(self):
-        self.driver.find_element(*self.order_button).click()
+        self.click_button(self.order_button)
 
-    # вводим в поле имя
-    def fill_field_name(self):
-        name = 'Игорь'
-        self.driver.find_element(*Locators_order.field_name).send_keys(name)
+    def fill_field_name(self, name):
+        self.entering_text_into_a_field(self.field_name, name)
 
-    # вводим в поле фамилию
-    def fill_field_surename(self):
-        surename = 'Жижа'
-        self.driver.find_element(*Locators_order.field_surname).send_keys(surename)
+    def fill_field_surname(self, surname):
+        self.entering_text_into_a_field(self.field_surname, surname)
 
-    # вводим в поле адрес
-    def fill_field_address(self):
-        address = 'Пушкина-калатушкина'
-        self.driver.find_element(*Locators_order.field_address).send_keys(address)
+    def fill_field_address(self, address):
+        self.entering_text_into_a_field(self.field_address, address)
 
-    # кликаем по полю станция метро
     def click_field_metro(self):
-        self.driver.find_element(*self.field_station_metro).click()
+        self.click_button(self.field_station_metro)
 
-    # выбираем метро
     def fill_paragraph_metro(self):
-        self.driver.find_element(*self.paragraph_metro).click()
+        self.click_button(self.paragraph_metro)
 
-    # вводим в поле номер
-    def fill_field_number(self):
-        number = '89224194190'
-        self.driver.find_element(*Locators_order.field_number).send_keys(number)
+    def fill_field_number(self, number):
+        self.entering_text_into_a_field(self.field_number, number)
 
-    # метод ожидания загрузки страницы
     def wait_for_load_about_rent(self):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(self.inscription))
+        self.wait_for_element_visibility(self.inscription)
 
-    # кликаем по кнопке дальше
     def click_order_next(self):
-        self.driver.find_element(*self.order_next).click()
-
+        self.click_button(self.order_next)
 
     def click_date(self):
-        self.driver.find_element(*self.field_bring_order).click()
+        self.click_button(self.field_bring_order)
 
-    # вводим в поле дату
-    def fill_field_bring_order(self):
-        self.driver.find_element(*self.date_twenty).click()
+    def click_field_bring_order(self):
+        self.click_button(self.date_twenty)
 
-    # выбираем период заказа
     def click_rental_period(self):
-        self.driver.find_element(*self.rental_period).click()
+        self.click_button(self.rental_period)
 
-    # кликаем по пункту пять дней
     def click_four_day(self):
-        self.driver.find_element(*self.four_day).click()
+        self.click_button(self.four_day)
 
-    # выбираем цвет самоката
     def click_checkbox_black(self):
-        self.driver.find_element(*self.checkbox_black).click()
+        self.click_button(self.checkbox_black)
 
-    # вводим в поле комент для курьера
-    def fill_comment_for_courier(self):
-        comment = 'чхз'
-        self.driver.find_element(*Locators_order.comment_for_courier).send_keys(comment)
+    def fill_comment_for_courier(self, comment):
+        self.entering_text_into_a_field(self.comment_for_courier, comment)
 
-    # завершаем заказ кликаем по кнопке заказать
     def click_button_charter(self):
-        self.driver.find_element(*self.button_charter).click()
+        self.wait_and_click_element(self.button_middle)
 
-    # кликаем по пнопке да
     def click_order_yes(self):
-        self.driver.find_element(*self.order_yes).click()
+        self.driver.click_button(*self.order_yes)
 
-    # получаем текст из выпадающего раздела
-    def get_text_order_check_status(self):
-        return self.driver.find_element(*self.order_check_status).text
+    def examination_text(self, text):
+        self.driver.get_text_from_field(self, text)
+
+
 
 
 # Класс для проверки второй кнопки на странице
-class CheckOrderSecondButton:
+class CheckOrderSecondButton(BasePage):
     def __init__(self, driver):
-        self.driver = driver
-        self.order_button_two = Locators_order.order_button_two
-        self.order_button = Locators_order.order_button
-        self.field_name = Locators_order.field_name
-        self.field_surname = Locators_order.field_surname
-        self.field_address = Locators_order.field_address
-        self.field_number = Locators_order.field_number
-        self.order_next = Locators_order.order_next
-        self.field_bring_order = Locators_order.field_bring_order
-        self.rental_period = Locators_order.rental_period
-        self.five_day = Locators_order.five_day
-        self.checkbox_gray = Locators_order.checkbox_gray
-        self.comment_for_courier = Locators_order.comment_for_courier
-        self.button_charter = Locators_order.button_charter
-        self.order_yes = Locators_order.order_yes
-        self.order_check_status = Locators_order.order_check_status
-        self.inscription = Locators_order.inscription
-        self.field_station_metro = Locators_order.field_station_metro
-        self.paragraph_metro_two = Locators_order.paragraph_metro_two
-        self.date_thirty = Locators_order.date_thirty
-        self.cookie_button = Locators_selection.cookie_button
+        super().__init__(driver)
+        self.order_button_two = LocatorsOrder.order_button_two
+        self.order_button = LocatorsOrder.order_button
+        self.field_name = LocatorsOrder.field_name
+        self.field_surname = LocatorsOrder.field_surname
+        self.field_address = LocatorsOrder.field_address
+        self.field_number = LocatorsOrder.field_number
+        self.order_next = LocatorsOrder.order_next
+        self.field_bring_order = LocatorsOrder.field_bring_order
+        self.rental_period = LocatorsOrder.rental_period
+        self.five_day = LocatorsOrder.five_day
+        self.checkbox_gray = LocatorsOrder.checkbox_gray
+        self.comment_for_courier = LocatorsOrder.comment_for_courier
+        self.button_middle = LocatorsOrder.button_middle
+        self.order_yes = LocatorsOrder.order_yes
+        self.inscription = LocatorsOrder.inscription
+        self.field_station_metro = LocatorsOrder.field_station_metro
+        self.paragraph_metro_two = LocatorsOrder.paragraph_metro_two
+        self.date_thirty = LocatorsOrder.date_thirty
+        self.cookie_button = LocatorsSelection.cookie_button
+        self.order_check_status = LocatorsOrder.order_check_status
 
-
-    # метод ожидания загрузки страницы
     def wait_for_load_page_order(self):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(self.order_button))
+        self.wait_for_element_visibility(self.order_button)
 
-    # метод для прокрутки страницы до нужного элемента
     def scroll_page_to_button(self):
-        element = self.driver.find_element(*self.order_button_two)
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
-        element.send_keys(self.order_button_two)
+        self.scroll_to_element(self.order_button_two)
 
     def click_cokies_now(self):
-        self.driver.find_element(*self.cookie_button).click()
+        self.wait_and_click_element(self.cookie_button)
 
-    #  Клик по кнопке заказать из шапки страницы
     def click_button_orders(self):
-        self.driver.find_element(*self.order_button_two).click()
+        self.wait_and_click_element(self.order_button_two)
 
-    # вводим в поле имя
-    def fill_field_name(self):
-        name = 'Жора'
-        self.driver.find_element(*Locators_order.field_name).send_keys(name)
+    def fill_field_name(self, name):
+        self.entering_text_into_a_field(self.field_name, name)
 
-    # вводим в поле фамилию
-    def fill_field_surename(self):
-        surename = 'Бичеслав'
-        self.driver.find_element(*Locators_order.field_surname).send_keys(surename)
+    def fill_field_surname(self, surname):
+        self.entering_text_into_a_field(self.field_surname, surname)
 
-    # вводим в поле адрес
-    def fill_field_address(self):
-        address = 'Гагаагага'
-        self.driver.find_element(*Locators_order.field_address).send_keys(address)
+    def fill_field_address(self, address):
+        self.entering_text_into_a_field(self.field_address, address)
 
-    # кликаем по полю станция метро
     def click_field_metro(self):
-        self.driver.find_element(*self.field_station_metro).click()
+        self.wait_and_click_element(self.field_station_metro)
 
-    # выбираем метро
     def fill_paragraph_metro(self):
-        self.driver.find_element(*self.paragraph_metro_two).click()
+        self.wait_and_click_element(self.paragraph_metro_two)
 
-    # вводим в поле номер
-    def fill_field_number(self):
-        number = '+79969969996'
-        self.driver.find_element(*Locators_order.field_number).send_keys(number)
+    def fill_field_number(self, number):
+        self.entering_text_into_a_field(self.field_number, number)
 
-    # метод ожидания загрузки страницы
     def wait_for_load_about_rent(self):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(self.inscription))
+        self.wait_for_element_visibility(self.inscription)
 
-    # кликаем по кнопке дальше
     def click_order_next(self):
-        self.driver.find_element(*self.order_next).click()
+        self.wait_and_click_element(self.order_next)
 
-    # кликаем по полю
     def click_date(self):
-        self.driver.find_element(*self.field_bring_order).click()
+        self.wait_and_click_element(self.field_bring_order)
 
-    # выбираем дату
     def fill_field_bring_order(self):
-        self.driver.find_element(*self.date_thirty).click()
+        self.wait_and_click_element(self.date_thirty)
 
-    # выбираем период заказа
     def click_rental_period(self):
-        self.driver.find_element(*self.rental_period).click()
+        self.wait_and_click_element(self.rental_period)
 
-    # кликаем по пункту четыре дня
     def click_five_day(self):
-        self.driver.find_element(*self.five_day).click()
+        self.wait_and_click_element(self.five_day)
 
-    # выбираем цвет самоката
     def click_checkbox_gray(self):
-        self.driver.find_element(*self.checkbox_gray).click()
+        self.wait_and_click_element(self.checkbox_gray)
 
-    # вводим в поле комент для курьера
-    def fill_comment_for_courier(self):
-        comment = 'чхз'
-        self.driver.find_element(*Locators_order.comment_for_courier).send_keys(comment)
+    def fill_comment_for_courier(self, comment):
+        self.entering_text_into_a_field(self.comment_for_courier, comment)
 
-    # завершаем заказ кликаем по кнопке заказать
     def click_button_charter(self):
-        self.driver.find_element(*self.button_charter).click()
+        self.driver.click_button(*self.button_middle)
 
-    # кликаем по пнопке да
+    def test(self):
+        self.wait_for_element_visibility(*self.order_check_status)
+
     def click_order_yes(self):
-        self.driver.find_element(*self.order_yes).click()
+        self.driver.wait_and_click_element(*self.order_yes)
 
-    # получаем текст из выпадающего раздела
-    def get_text_order_check_status(self):
-        return self.driver.find_element(*self.order_check_status).text
-
-
-
-
-
-
-
-
-
+    def examination_text(self, text):
+        self.driver.get_text_from_field(self, text)
 
 
