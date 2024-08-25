@@ -1,6 +1,10 @@
 from locators.orders_scooter import LocatorsOrder
 from locators.selection_important import LocatorsSelection
-from test_base import BasePage
+from BasePage import BasePage
+from iniconf.curl import base_page
+import allure
+
+base_url = base_page
 
 
 class CheckOrderFirstButton(BasePage):
@@ -26,64 +30,83 @@ class CheckOrderFirstButton(BasePage):
         self.paragraph_metro = LocatorsOrder.paragraph_metro
         self.date_twenty = LocatorsOrder.date_twenty
 
+    @allure.step('Ждем кнопку Заказать')
     def wait_for_load_page_order(self):
         self.click_button(self.order_button)
 
+    @allure.step('Кликаем по кнопке Заказать')
     def click_button_orders(self):
         self.click_button(self.order_button)
 
+    @allure.step('Вводим имя в поле')
     def fill_field_name(self, name):
         self.entering_text_into_a_field(self.field_name, name)
 
+    @allure.step('Вводим фамилию в поле')
     def fill_field_surname(self, surname):
         self.entering_text_into_a_field(self.field_surname, surname)
 
+    @allure.step('Вводим адрес в поле')
     def fill_field_address(self, address):
         self.entering_text_into_a_field(self.field_address, address)
 
+    @allure.step('Кликаем по полю метро')
     def click_field_metro(self):
         self.click_button(self.field_station_metro)
 
+    @allure.step('Выбираем элемент с текстом метро')
     def fill_paragraph_metro(self):
         self.click_button(self.paragraph_metro)
 
+    @allure.step('Вводим имя в поле')
     def fill_field_number(self, number):
         self.entering_text_into_a_field(self.field_number, number)
 
-    def wait_for_load_about_rent(self):
-        self.wait_for_element_visibility(self.inscription)
-
+    @allure.step('Кликаем по кнопке далее')
     def click_order_next(self):
         self.click_button(self.order_next)
 
+    @allure.step('Кликаем по полю когда привезти самокат')
     def click_date(self):
         self.click_button(self.field_bring_order)
 
+    @allure.step('Выбираем дату из поля про самокаты')
     def click_field_bring_order(self):
         self.click_button(self.date_twenty)
 
+    @allure.step('Кликаем по полю срок аренды')
     def click_rental_period(self):
         self.click_button(self.rental_period)
 
+    @allure.step('Выбираем колличество из поля про аренду')
     def click_four_day(self):
         self.click_button(self.four_day)
 
+    @allure.step('Кликаем по чекбоксу чёрни')
     def click_checkbox_black(self):
         self.click_button(self.checkbox_black)
 
+    @allure.step('Вписываем комент в поле для коментов доставщику')
     def fill_comment_for_courier(self, comment):
         self.entering_text_into_a_field(self.comment_for_courier, comment)
 
+    @allure.step('Кликаем по кнопке заказать для завершения заказа')
     def click_button_charter(self):
         self.wait_and_click_element(self.button_middle)
 
-    def click_order_yes(self):
-        self.driver.click_button(*self.order_yes)
+    @allure.step('Ждем модалку с кнопкой да')
+    def wait_for_modal_button_yes(self):
+        self.wait_for_element_visibility(self.order_yes)
 
-    def examination_text(self, text):
-        self.driver.get_text_from_field(self, text)
+    @allure.step('Кликаем по кнопке да ')
+    def click_modal_button_yes(self):
+        self.wait_and_click_element(self.order_yes)
 
-
+    @allure.step('Ищем текст о завершении заказа')
+    def examination_text(self):
+        actual_text = self.driver.find_element(*self.order_check_status).text
+        expected_text = "Заказ оформлен"
+        assert expected_text in actual_text, f"Expected text '{expected_text}', but got '{actual_text}'"
 
 
 # Класс для проверки второй кнопки на странице
@@ -111,70 +134,88 @@ class CheckOrderSecondButton(BasePage):
         self.cookie_button = LocatorsSelection.cookie_button
         self.order_check_status = LocatorsOrder.order_check_status
 
+    @allure.step('Ждем кнопку Заказать')
     def wait_for_load_page_order(self):
         self.wait_for_element_visibility(self.order_button)
 
+    @allure.step('Скролим до кнопки Заказать с середины страницы')
     def scroll_page_to_button(self):
         self.scroll_to_element(self.order_button_two)
 
+    @allure.step('Кликаем по кнопке что бы скрыть куки')
     def click_cokies_now(self):
         self.wait_and_click_element(self.cookie_button)
 
+    @allure.step('Кликаем по кнопке заказать')
     def click_button_orders(self):
         self.wait_and_click_element(self.order_button_two)
 
+    @allure.step('Вводим имя в поле')
     def fill_field_name(self, name):
         self.entering_text_into_a_field(self.field_name, name)
 
+    @allure.step('Вводим фамилию в поле')
     def fill_field_surname(self, surname):
         self.entering_text_into_a_field(self.field_surname, surname)
 
+    @allure.step('Вводим адрес в поле')
     def fill_field_address(self, address):
         self.entering_text_into_a_field(self.field_address, address)
 
+    @allure.step('Кликаем по полю метро')
     def click_field_metro(self):
         self.wait_and_click_element(self.field_station_metro)
 
+    @allure.step('Выбираем элемент с текстом метро')
     def fill_paragraph_metro(self):
         self.wait_and_click_element(self.paragraph_metro_two)
 
+    @allure.step('Вводим номер телефона в поле')
     def fill_field_number(self, number):
         self.entering_text_into_a_field(self.field_number, number)
 
-    def wait_for_load_about_rent(self):
-        self.wait_for_element_visibility(self.inscription)
-
+    @allure.step('Кликаем по кнопке далее')
     def click_order_next(self):
         self.wait_and_click_element(self.order_next)
 
+    @allure.step('Кликаем по полю Поле когда привезти самокат')
     def click_date(self):
         self.wait_and_click_element(self.field_bring_order)
 
+    @allure.step('Выбираем дату из выпадающего меню')
     def fill_field_bring_order(self):
         self.wait_and_click_element(self.date_thirty)
 
+    @allure.step('Кликаем по полю срок аренды')
     def click_rental_period(self):
         self.wait_and_click_element(self.rental_period)
 
+    @allure.step('Выбираем дату из поля')
     def click_five_day(self):
         self.wait_and_click_element(self.five_day)
 
+    @allure.step('Выбираем чекбокс серый')
     def click_checkbox_gray(self):
         self.wait_and_click_element(self.checkbox_gray)
 
+    @allure.step('Выбираем чекбокс серый')
     def fill_comment_for_courier(self, comment):
         self.entering_text_into_a_field(self.comment_for_courier, comment)
 
+    @allure.step('Кликаем по кнопке заказать что бы завершить заказ')
     def click_button_charter(self):
-        self.driver.click_button(*self.button_middle)
+        self.wait_and_click_element(self.button_middle)
 
-    def test(self):
-        self.wait_for_element_visibility(*self.order_check_status)
+    @allure.step('Ждем модалку с кнопкой да')
+    def wait_for_modal_button_yes(self):
+        self.wait_for_element_visibility(self.order_yes)
 
-    def click_order_yes(self):
-        self.driver.wait_and_click_element(*self.order_yes)
+    @allure.step('кликаем по кнопке да')
+    def click_modal_button_yes(self):
+        self.wait_and_click_element(self.order_yes)
 
-    def examination_text(self, text):
-        self.driver.get_text_from_field(self, text)
-
-
+    @allure.step('Ищем текст о завершении заказа')
+    def examination_text(self):
+        actual_text = self.driver.find_element(*self.order_check_status).text
+        expected_text = "Заказ оформлен"
+        assert expected_text in actual_text, f"Expected text '{expected_text}', but got '{actual_text}'"
