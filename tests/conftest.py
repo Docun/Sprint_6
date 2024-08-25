@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-from iniconf.curl import base_page
+
 
 
 @pytest.fixture(scope="class")
@@ -12,6 +12,6 @@ def driver():
 
 @pytest.fixture(scope="class")
 def start_from_login_page(driver):
-    driver.get(base_page)
+    driver.get('https://qa-scooter.praktikum-services.ru/')
     return driver
 

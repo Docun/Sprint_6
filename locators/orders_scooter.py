@@ -4,8 +4,11 @@ class LocatorsOrder:
     # Кнопка Заказать в шапке
     order_button = (By.CLASS_NAME, 'Button_Button__ra12g')
 
-    # Кнопка Заказать по середине страницы
-    order_button_two = (By.XPATH, '//*[@id="root"]/div/div/div[4]/div[2]/div[5]/button')
+    # Кнопка Заказать посередине страницы
+    order_button_two = (By.CSS_SELECTOR, ("#root > div > div > div.Header_Header__214zg > div.Header_Nav__AGCXC > button.Button_Button__ra12g"))
+
+    # Кнопка заказать из страницы заказа
+    button_middle = (By.CSS_SELECTOR, ("#root > div > div.Order_Content__bmtHS > div.Order_Buttons__1xGrp > button:nth-child(2)"))
 
     # Поле Имя
     field_name = (By.XPATH, "//input[@placeholder='* Имя']")
@@ -49,11 +52,8 @@ class LocatorsOrder:
     # Поле комент для курьера
     comment_for_courier = (By.XPATH, "//input[@placeholder='Комментарий для курьера']")
 
-    # Кнопка Заказать
-    button_middle = (By.CSS_SELECTOR, "button.Button_Buttonra12g.Button_Middle1CSJM")
-
     # Кнопка ДА
-    order_yes = (By.XPATH, '//*[text()="Да"]')
+    order_yes = (By.XPATH, "//button[contains(@class, 'Button_Button__ra12g') and contains(@class, 'Button_Middle__1CSJM') and text()='Да']")
 
     # Надпись статус заказа
     order_check_status = (By.CLASS_NAME, 'Order_ModalHeader__3FDaJ')
