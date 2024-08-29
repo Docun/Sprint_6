@@ -1,3 +1,5 @@
+import time
+
 from locators.logo_page import LocatorsLogo
 from locators.orders_scooter import LocatorsOrder
 from pages.BasePage import BasePage
@@ -11,21 +13,11 @@ class TestLogoNavigation(BasePage):
         self.yandex_logo = LocatorsLogo.yandex_logo
         self.scooter_logo = LocatorsLogo.scooter_logo
         self.order_button = LocatorsOrder.order_button
-
-    @allure.step('Открываем новую страницу и закрываем старую')
-    def open_new_page(self, url):
-        if self.driver.current_url != url:
-            self.driver.get(url)
-
+    def close_and_open_new_page(self):
         if len(self.driver.window_handles) > 1:
             self.driver.close()
             self.driver.switch_to.window(self.driver.window_handles[0])
-
-    @allure.step('Закрываем текущую страницу и открываем новую')
-    def close_and_open_new_page(self, url):
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
-        self.driver.get(url)
+            self.driver.get(base_page)
 
     @allure.step('Проверяем что страница открылась')
     def wait_for_load_yandex_logo(self):
