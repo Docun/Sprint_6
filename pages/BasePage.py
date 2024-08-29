@@ -1,4 +1,3 @@
-import self
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -48,16 +47,8 @@ class BasePage:
         element = self.driver.find_element(*locator)
         self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
-    def get_text_from_field(self, locator, actual_text):
-        check_text = self.page.locator()
-        assert actual_text in check_text
-
     def click_button(self, locator):
         self.driver.find_element(*locator).click()
-
-    # Метод для проверки, содержит ли текущий URL ожидаемую подстроку
-    def check_current_url_contains(self, expected_url_part, timeout=10):
-        WebDriverWait(self.driver, timeout).until(EC.url_contains(expected_url_part))
 
     def check_text(self, expected_url_part: str):
         current_url = self.driver.current_url
@@ -66,14 +57,10 @@ class BasePage:
     def wait_for_element_visibility(self, locator, timeout=10):
         WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
 
-    def wait_and_click_element(self, locator, timeout=10):
-        WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(locator)).click()
 
     def find_element_by_text_and_verify(self, locator, expected_text):
-        actual_text_element = self.driver.find_element(*locator)
-        actual_text = actual_text_element.text
-        assert actual_text == expected_text, f"Expected text '{expected_text}', but got '{actual_text}'"
-        return actual_text == expected_text
-
+        element = self.driver.find_element(*locator)
+        actual_text = element.text
+        assert actual_text == expected_text, f'Expected text "{expected_text}" but got "{actual_text}".'
 
 

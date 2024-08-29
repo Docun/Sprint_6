@@ -1,10 +1,9 @@
 from locators.orders_scooter import LocatorsOrder
 from locators.selection_important import LocatorsSelection
-from BasePage import BasePage
-from iniconf.curl import base_page
+from pages.BasePage import BasePage
+from iniconf.data import safe_keeper
 import allure
 
-base_url = base_page
 
 
 class CheckOrderFirstButton(BasePage):
@@ -39,16 +38,16 @@ class CheckOrderFirstButton(BasePage):
         self.click_button(self.order_button)
 
     @allure.step('Вводим имя в поле')
-    def fill_field_name(self, name):
-        self.entering_text_into_a_field(self.field_name, name)
+    def fill_field_name(self):
+        self.entering_text_into_a_field(self.field_name, safe_keeper['name'])
 
     @allure.step('Вводим фамилию в поле')
-    def fill_field_surname(self, surname):
-        self.entering_text_into_a_field(self.field_surname, surname)
+    def fill_field_surname(self):
+        self.entering_text_into_a_field(self.field_surname, safe_keeper['surname'])
 
     @allure.step('Вводим адрес в поле')
-    def fill_field_address(self, address):
-        self.entering_text_into_a_field(self.field_address, address)
+    def fill_field_address(self):
+        self.entering_text_into_a_field(self.field_address, safe_keeper['address'])
 
     @allure.step('Кликаем по полю метро')
     def click_field_metro(self):
@@ -59,8 +58,8 @@ class CheckOrderFirstButton(BasePage):
         self.click_button(self.paragraph_metro)
 
     @allure.step('Вводим имя в поле')
-    def fill_field_number(self, number):
-        self.entering_text_into_a_field(self.field_number, number)
+    def fill_field_number(self):
+        self.entering_text_into_a_field(self.field_number, safe_keeper['phone_number'])
 
     @allure.step('Кликаем по кнопке далее')
     def click_order_next(self):
@@ -87,8 +86,8 @@ class CheckOrderFirstButton(BasePage):
         self.click_button(self.checkbox_black)
 
     @allure.step('Вписываем комент в поле для коментов доставщику')
-    def fill_comment_for_courier(self, comment):
-        self.entering_text_into_a_field(self.comment_for_courier, comment)
+    def fill_comment_for_courier(self):
+        self.entering_text_into_a_field(self.comment_for_courier, safe_keeper['comment'])
 
     @allure.step('Кликаем по кнопке заказать для завершения заказа')
     def click_button_charter(self):
@@ -104,9 +103,8 @@ class CheckOrderFirstButton(BasePage):
 
     @allure.step('Ищем текст о завершении заказа')
     def examination_text(self):
-        actual_text = self.driver.find_element(*self.order_check_status).text
-        expected_text = "Заказ оформлен"
-        assert expected_text in actual_text, f"Expected text '{expected_text}', but got '{actual_text}'"
+        self.find_element_by_text_and_verify(self.order_check_status, safe_keeper['check_orders'])
+
 
 
 # Класс для проверки второй кнопки на странице
@@ -151,16 +149,16 @@ class CheckOrderSecondButton(BasePage):
         self.wait_and_click_element(self.order_button_two)
 
     @allure.step('Вводим имя в поле')
-    def fill_field_name(self, name):
-        self.entering_text_into_a_field(self.field_name, name)
+    def fill_field_name(self):
+        self.entering_text_into_a_field(self.field_name, safe_keeper['name_1'])
 
     @allure.step('Вводим фамилию в поле')
-    def fill_field_surname(self, surname):
-        self.entering_text_into_a_field(self.field_surname, surname)
+    def fill_field_surname(self):
+        self.entering_text_into_a_field(self.field_surname, safe_keeper['surname_2'])
 
     @allure.step('Вводим адрес в поле')
-    def fill_field_address(self, address):
-        self.entering_text_into_a_field(self.field_address, address)
+    def fill_field_address(self):
+        self.entering_text_into_a_field(self.field_address, safe_keeper['address_3'])
 
     @allure.step('Кликаем по полю метро')
     def click_field_metro(self):
@@ -171,8 +169,8 @@ class CheckOrderSecondButton(BasePage):
         self.wait_and_click_element(self.paragraph_metro_two)
 
     @allure.step('Вводим номер телефона в поле')
-    def fill_field_number(self, number):
-        self.entering_text_into_a_field(self.field_number, number)
+    def fill_field_number(self):
+        self.entering_text_into_a_field(self.field_number, safe_keeper['phone_number_4'])
 
     @allure.step('Кликаем по кнопке далее')
     def click_order_next(self):
@@ -199,8 +197,8 @@ class CheckOrderSecondButton(BasePage):
         self.wait_and_click_element(self.checkbox_gray)
 
     @allure.step('Выбираем чекбокс серый')
-    def fill_comment_for_courier(self, comment):
-        self.entering_text_into_a_field(self.comment_for_courier, comment)
+    def fill_comment_for_courier(self):
+        self.entering_text_into_a_field(self.comment_for_courier, safe_keeper['comment_5'])
 
     @allure.step('Кликаем по кнопке заказать что бы завершить заказ')
     def click_button_charter(self):
@@ -216,6 +214,4 @@ class CheckOrderSecondButton(BasePage):
 
     @allure.step('Ищем текст о завершении заказа')
     def examination_text(self):
-        actual_text = self.driver.find_element(*self.order_check_status).text
-        expected_text = "Заказ оформлен"
-        assert expected_text in actual_text, f"Expected text '{expected_text}', but got '{actual_text}'"
+        self.find_element_by_text_and_verify(self.order_check_status, safe_keeper['check_orders'])
