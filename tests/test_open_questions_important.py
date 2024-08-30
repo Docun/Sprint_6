@@ -1,39 +1,21 @@
-from pages.section_Important import CheckSections
-from iniconf.curl import base_page
+from pages.section_important import CheckSections
+from iniconf.data import safe_keeper
+import pytest
+
 
 class TestImportntQuestions:
-    def test_logo_navigation(self, start_from_login_page):
-        page = CheckSections(start_from_login_page)
-        url = base_page
-        page.open_new_page(url)
-        page.wait_for_load_questions()
-        page.scroll_page_for_live()
-        page.click_cookies_now()
-        page.check_how_much_section()
-        page.close_and_open_new_page()
-        page.scroll_page_for_live()
-        page.click_cookies_now()
-        page.check_some_scooters_section()
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
-        # page.
+    @pytest.mark.parametrize("meaning, get_answer", [(0, safe_keeper[0]), (1, safe_keeper[1]), (2, safe_keeper[2]), (3, safe_keeper[3]), (4, safe_keeper[4]), (5, safe_keeper[5]), (6, safe_keeper[6]), (7, safe_keeper[7])])
+    def test_questions_navigation(self, start_from_login_page, meaning, get_answer):
+        check_selections = CheckSections(start_from_login_page)
+        check_selections.click_buttons_cockies()
+        check_selections.scroll_page_for_live()
+        check_question = check_selections.check_block_of_questions(meaning)
+        get_text = check_selections.find_answer(meaning)
+        assert get_answer[check_question] == get_text
+
+
+
+
 
 
 # import allure

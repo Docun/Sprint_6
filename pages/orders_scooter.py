@@ -1,5 +1,3 @@
-import self
-
 from locators.orders_scooter_locators import LocatorsOrder
 from locators.selection_important_locators import LocatorsSelection
 from pages.base_page import BasePage

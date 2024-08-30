@@ -9,36 +9,37 @@ class BasePage:
     # Метод для ожидания кликабельности элемента и выполнения клика
     def wait_and_click_element(self, locator, timeout=10):
         WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(locator)).click()
+        return self.driver.find_element(*locator)
 
-    def close_and_open_new_page(self, url):
-        if len(self.driver.window_handles) > 1:
-            self.driver.close()
-            self.driver.switch_to.window(self.driver.window_handles[0])
-            self.driver.get(url)
+    # def close_and_open_new_page(self, url):
+    #     if len(self.driver.window_handles) > 1:
+    #         self.driver.close()
+    #         self.driver.switch_to.window(self.driver.window_handles[0])
+    #         self.driver.get(url)
 
-    # Метод для ожидания количества окон и сравнения url
-    def wait_for_number_of_windows(self, number_of_windows, url_part, timeout=10):
-        WebDriverWait(self.driver, timeout).until(EC.number_of_windows_to_be(number_of_windows))
-
-        windows = self.driver.window_handles
-
-        new_window = [window for window in windows if window != self.driver.current_window_handle][0]
-        self.driver.switch_to.window(new_window)
-
-        WebDriverWait(self.driver, timeout).until(EC.url_contains(url_part))
-
-        current_url = self.driver.current_url
-        if url_part not in current_url:
-            raise AssertionError(f"Expected URL to contain '{url_part}', but got '{current_url}'")
-
-        self.driver.close()
-
-        original_window = [window for window in self.driver.window_handles if window != new_window][0]
-        self.driver.switch_to.window(original_window)
+    # # Метод для ожидания количества окон и сравнения url
+    # # def wait_for_number_of_windows(self, number_of_windows, url_part, timeout=10):
+    # #     WebDriverWait(self.driver, timeout).until(EC.number_of_windows_to_be(number_of_windows))
+    #
+    #     windows = self.driver.window_handles
+    #
+    #     new_window = [window for window in windows if window != self.driver.current_window_handle][0]
+    #     self.driver.switch_to.window(new_window)
+    #
+    #     WebDriverWait(self.driver, timeout).until(EC.url_contains(url_part))
+    #
+    #     current_url = self.driver.current_url
+    #     if url_part not in current_url:
+    #         raise AssertionError(f"Expected URL to contain '{url_part}', but got '{current_url}'")
+    #
+    #     self.driver.close()
+    #
+    #     original_window = [window for window in self.driver.window_handles if window != new_window][0]
+    #     self.driver.switch_to.window(original_window)
 
     # Метод для ожидания наличия URL
-    def wait_for_url_contains(self, url_part, timeout=10):
-        WebDriverWait(self.driver, timeout).until(EC.url_contains(url_part))
+    # def wait_for_url_contains(self, url_part, timeout=10):
+    #     WebDriverWait(self.driver, timeout).until(EC.url_contains(url_part))
 
 
     # Метод для ввода текста в поле
@@ -61,6 +62,7 @@ class BasePage:
 
     def wait_for_element_visibility(self, locator, timeout=10):
         WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        return self.driver.find_element(*locator)
 
 
     def find_element_by_text_and_verify(self, locator, expected_text):

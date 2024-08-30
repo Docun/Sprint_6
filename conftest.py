@@ -1,14 +1,14 @@
 import pytest
 from selenium import webdriver
-from data import , 
-
+from iniconf.curl import base_page
 
 @pytest.fixture(scope="function")
-def driver():
-    """Фикстура для запуска браузера Firefox."""
-    firefox_options = webdriver.FirefoxOptions()
-    driver = webdriver.Firefox(options=firefox_options)
-    driver.set_window_size(*RESOLUTION)
-    driver.get(URL_SCOOTER)
+def start_from_login_page():
+    driver = webdriver.Firefox()
+    screen_width = driver.execute_script("return window.screen.width;")
+    screen_height = driver.execute_script("return window.screen.height;")
+    driver.set_window_size(screen_width, screen_height)
+    driver.get(base_page)
     yield driver
     driver.quit()
+
