@@ -1,5 +1,5 @@
 import allure
-from pages.page_orders import CheckOrderFirstButton, CheckOrderSecondButton
+from pages.orders_scooter import CheckOrderFirstButton, CheckOrderSecondButton
 
 
 class TestFirstOrderScooter:

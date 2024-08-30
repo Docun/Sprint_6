@@ -1,8 +1,6 @@
 from selenium.webdriver.common.by import By
 
 class LocatorsSelection:
-    # Кнопка для кукис
-    cookie_button = (By.CLASS_NAME, 'App_CookieButton__3cvqF')
 
     # Заголовок "Сколько это стоит? И как оплатить?"
     accordeon_huw_much = (By.ID, 'accordion__heading-0')

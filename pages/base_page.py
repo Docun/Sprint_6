@@ -2,7 +2,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-# Базовый класс, который будет содержать общие методы
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
@@ -10,6 +9,12 @@ class BasePage:
     # Метод для ожидания кликабельности элемента и выполнения клика
     def wait_and_click_element(self, locator, timeout=10):
         WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(locator)).click()
+
+    def close_and_open_new_page(self, url):
+        if len(self.driver.window_handles) > 1:
+            self.driver.close()
+            self.driver.switch_to.window(self.driver.window_handles[0])
+            self.driver.get(url)
 
     # Метод для ожидания количества окон и сравнения url
     def wait_for_number_of_windows(self, number_of_windows, url_part, timeout=10):
@@ -62,5 +67,4 @@ class BasePage:
         element = self.driver.find_element(*locator)
         actual_text = element.text
         assert actual_text == expected_text, f'Expected text "{expected_text}" but got "{actual_text}".'
-
 

@@ -1,109 +1,83 @@
-from locators.orders_scooter import LocatorsOrder
-from locators.selection_important import LocatorsSelection
-from pages.BasePage import BasePage
+import self
+
+from locators.orders_scooter_locators import LocatorsOrder
+from locators.selection_important_locators import LocatorsSelection
+from pages.base_page import BasePage
 from iniconf.data import safe_keeper
 import allure
 
-
-
 class CheckOrderFirstButton(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.order_button = LocatorsOrder.order_button
-        self.field_name = LocatorsOrder.field_name
-        self.field_surname = LocatorsOrder.field_surname
-        self.field_address = LocatorsOrder.field_address
-        self.field_number = LocatorsOrder.field_number
-        self.order_next = LocatorsOrder.order_next
-        self.field_bring_order = LocatorsOrder.field_bring_order
-        self.rental_period = LocatorsOrder.rental_period
-        self.four_day = LocatorsOrder.four_day
-        self.checkbox_black = LocatorsOrder.checkbox_black
-        self.comment_for_courier = LocatorsOrder.comment_for_courier
-        self.button_middle = LocatorsOrder.button_middle
-        self.order_yes = LocatorsOrder.order_yes
-        self.order_check_status = LocatorsOrder.order_check_status
-        self.inscription = LocatorsOrder.inscription
-        self.field_station_metro = LocatorsOrder.field_station_metro
-        self.paragraph_metro = LocatorsOrder.paragraph_metro
-        self.date_twenty = LocatorsOrder.date_twenty
+    @allure.step('Вводим имя в поле')
+    def fill_field_name(self, field_name):
+        self.entering_text_into_a_field(LocatorsOrder.field_name, safe_keeper['name'])
 
-    @allure.step('Ждем кнопку Заказать')
-    def wait_for_load_page_order(self):
-        self.click_button(self.order_button)
+    @allure.step('Вводим имя в поле')
+    def fill_field_surname(self):
+        self.entering_text_into_a_field(LocatorsOrder.field_surname, safe_keeper['surname'])
+
+    @allure.step('Вводим фамилию в поле')
+    def fill_field_surname(self):
+        self.entering_text_into_a_field(LocatorsOrder.field_surname, safe_keeper['surname'])
+
+    @allure.step('Вводим адрес в поле')
+    def fill_field_address(self):
+        self.entering_text_into_a_field(LocatorsOrder.field_address, safe_keeper['address'])
+
+    @allure.step('Выбираем пункт метро')
+    def fill_paragraph_metro(self):
+        self.click_button(LocatorsOrder.field_station_metro)
+        self.click_button(LocatorsOrder.paragraph_metro)
+
+    @allure.step('Кликаем по полю и выбираем дату из поля про самокаты')
+    def click_field_bring_order(self):
+        self.click_button(LocatorsOrder.field_bring_order)
+        self.click_button(LocatorsOrder.date_twenty)
+
+    @allure.step('Кликаем по полю срок аренды и выбираем колличество')
+    def click_rental_period(self):
+        self.click_button(LocatorsOrder.rental_period)
+        self.click_button(LocatorsOrder.four_day)
+
+    @allure.step('Вписываем комент в поле для коментов доставщику')
+    def fill_comment_for_courier(self):
+        self.entering_text_into_a_field(LocatorsOrder.comment_for_courier, safe_keeper['comment'])
+
+    @allure.step('Ждем и кликаем модалку с кнопкой да')
+    def wait_and_click_modal_button_yes(self):
+        self.wait_for_element_visibility(LocatorsOrder.order_yes)
+        self.wait_and_click_element(LocatorsOrder.order_yes)
+
+
+
+
+
+
+
 
     @allure.step('Кликаем по кнопке Заказать')
     def click_button_orders(self):
         self.click_button(self.order_button)
 
-    @allure.step('Вводим имя в поле')
-    def fill_field_name(self):
-        self.entering_text_into_a_field(self.field_name, safe_keeper['name'])
-
-    @allure.step('Вводим фамилию в поле')
-    def fill_field_surname(self):
-        self.entering_text_into_a_field(self.field_surname, safe_keeper['surname'])
-
-    @allure.step('Вводим адрес в поле')
-    def fill_field_address(self):
-        self.entering_text_into_a_field(self.field_address, safe_keeper['address'])
-
-    @allure.step('Кликаем по полю метро')
-    def click_field_metro(self):
-        self.click_button(self.field_station_metro)
-
-    @allure.step('Выбираем элемент с текстом метро')
-    def fill_paragraph_metro(self):
-        self.click_button(self.paragraph_metro)
-
-    @allure.step('Вводим имя в поле')
-    def fill_field_number(self):
-        self.entering_text_into_a_field(self.field_number, safe_keeper['phone_number'])
 
     @allure.step('Кликаем по кнопке далее')
     def click_order_next(self):
         self.click_button(self.order_next)
 
-    @allure.step('Кликаем по полю когда привезти самокат')
-    def click_date(self):
-        self.click_button(self.field_bring_order)
-
-    @allure.step('Выбираем дату из поля про самокаты')
-    def click_field_bring_order(self):
-        self.click_button(self.date_twenty)
-
-    @allure.step('Кликаем по полю срок аренды')
-    def click_rental_period(self):
-        self.click_button(self.rental_period)
-
-    @allure.step('Выбираем колличество из поля про аренду')
-    def click_four_day(self):
-        self.click_button(self.four_day)
-
     @allure.step('Кликаем по чекбоксу чёрни')
     def click_checkbox_black(self):
         self.click_button(self.checkbox_black)
 
-    @allure.step('Вписываем комент в поле для коментов доставщику')
-    def fill_comment_for_courier(self):
-        self.entering_text_into_a_field(self.comment_for_courier, safe_keeper['comment'])
 
     @allure.step('Кликаем по кнопке заказать для завершения заказа')
     def click_button_charter(self):
         self.wait_and_click_element(self.button_middle)
 
-    @allure.step('Ждем модалку с кнопкой да')
-    def wait_for_modal_button_yes(self):
-        self.wait_for_element_visibility(self.order_yes)
-
-    @allure.step('Кликаем по кнопке да ')
-    def click_modal_button_yes(self):
-        self.wait_and_click_element(self.order_yes)
-
     @allure.step('Ищем текст о завершении заказа')
     def examination_text(self):
         self.find_element_by_text_and_verify(self.order_check_status, safe_keeper['check_orders'])
+
+
 
 
 

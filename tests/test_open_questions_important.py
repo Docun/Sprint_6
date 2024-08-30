@@ -1,4 +1,4 @@
-from pages.section_important import CheckSections
+from pages.section_Important import CheckSections
 from iniconf.curl import base_page
 
 class TestImportntQuestions:

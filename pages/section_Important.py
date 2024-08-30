@@ -1,22 +1,10 @@
-from locators.selection_important import LocatorsSelection
-from locators.orders_scooter import LocatorsOrder
-from pages.BasePage import BasePage
+from locators.orders_scooter_locators import LocatorsOrder
+from pages.base_page import BasePage
 from iniconf.data import safe_keeper
+from locators.selection_important_locators import LocatorsSelection
 import allure
 
 class CheckSections(BasePage):
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-        self.accordeon_huw_much = LocatorsSelection.accordeon_huw_much
-        self.open_content_how_much = LocatorsSelection.open_content_how_much
-        self.accordeon_live_for_mkad = LocatorsSelection.accordeon_live_for_mkad
-        self.accordion_some = LocatorsSelection.accordion_some
-        self.open_content_some = LocatorsSelection.open_content_some
-        self.accordion_rental = LocatorsSelection.accordion_rental
-        self.open_content_order = LocatorsSelection.open_content_order
-        self.cookie_button = LocatorsSelection.cookie_button
-        self.order_button = LocatorsOrder.order_button
 
     # Общие методы
     @allure.step('Открываем новую страницу и закрываем старую')
