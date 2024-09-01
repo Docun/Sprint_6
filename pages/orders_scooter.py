@@ -1,14 +1,17 @@
 import allure
 from pages.base_page import BasePage
 from locators.orders_scooter_locators import LocatorsOrder
-from locators.base_page_locators import MainPageLocators
+# from locators.base_page_locators import MainPageLocators
 
 class CheckOrderTwoButton(BasePage):
 
+    def click_main_button_order(self):
+        self.click_button(LocatorsOrder.MIDDLE_BUTTON)
+
     def scroll_and_click_button_order(self):
-        self.scroll_to_element(MainPageLocators.BUTTON_MIDDLE)
-        self.wait_for_element_visibility(MainPageLocators.BUTTON_MIDDLE)
-        self.click_button(MainPageLocators.BUTTON_MIDDLE)
+        self.scroll_to_element(LocatorsOrder.ORDER_BUTTON_TWO)
+        self.wait_for_element_visibility(LocatorsOrder.ORDER_BUTTON_TWO)
+        self.click_button(LocatorsOrder.ORDER_BUTTON_TWO)
 
     @allure.step('Вводим имя в поле')
     def fill_field_name(self, name):
