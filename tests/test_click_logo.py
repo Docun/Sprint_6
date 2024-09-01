@@ -1,5 +1,4 @@
 from pages.logo_navigation import TestLogoNavigation
-import pytest
 import allure
 
 

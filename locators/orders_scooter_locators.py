@@ -2,6 +2,9 @@ from selenium.webdriver.common.by import By
 
 class LocatorsOrder:
 
+    # Кнопка Заказать в шапке страницы
+    MIDDLE_BUTTON = (By.CLASS_NAME, 'Button_Button__ra12g')
+
     # Кнопка Заказать посередине страницы
     ORDER_BUTTON_TWO = (By.XPATH, "//button[contains(@class, 'Button_Button__ra12g') and contains(@class, 'Button_Middle__1CSJM') and text()='Заказать']")
 

@@ -1,7 +1,6 @@
 import allure
 import pytest
 from pages.orders_scooter import CheckOrderTwoButton
-from locators.base_page_locators import MainPageLocators
 from iniconf.data import personal_data_kit_first, personal_data_kit_second
 
 class TestOrderScooter:
@@ -11,7 +10,7 @@ class TestOrderScooter:
     def test_uno_order(self, start_from_login_page, name, surname, address, phone_number, comment):
         orders = CheckOrderTwoButton(start_from_login_page)
         orders.click_buttons_cockies()
-        orders.click_button(MainPageLocators.ORDER_BUTTON)
+        orders.click_main_button_order()
         orders.order_collection(name, surname, address, phone_number, comment)
         order_text = orders.check_order_text()
         assert "Заказ оформлен" in order_text
@@ -25,7 +24,6 @@ class TestOrderScooter:
         orders = CheckOrderTwoButton(start_from_login_page)
         orders.click_buttons_cockies()
         orders.scroll_and_click_button_order()
-        orders.click_button(MainPageLocators.ORDER_BUTTON)
         orders.order_collection(name, surname, address, phone_number, comment)
         order_text = orders.check_order_text()
         assert "Заказ оформлен" in order_text
